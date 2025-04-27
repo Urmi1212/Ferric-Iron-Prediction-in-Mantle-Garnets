@@ -1,2 +1,18 @@
 # Ferric-Iron-Prediction-in-Mantle-Garnets
-Codes and notebooks for predicting Fe³⁺/∑Fe in garnet using machine learning, applied to global geological datasets. Focus on data preprocessing, model development, and performance visualization.
+This repository contains all codes, scripts, and notebooks developed for the project "Fe³⁺/∑Fe Prediction in Mantle Garnets Using Machine Learning".
+
+The project integrates geochemical data analysis, machine learning model development, and statistical validation techniques to predict ferric iron content across various geological datasets.
+
+Key components include:
+
+Data collation and pre-processing
+
+Exploratory data analysis (PCA analysis, Outlier detection)
+
+Machine learning models (Random Forest, XGBoost, LightGBM, Linear Regression etc.)
+
+Visualization of model performance
+
+Application to independent geological datasets (different cratons)
+
+The goal is to create a reproducible, scalable workflow for mineralogical data interpretation.
