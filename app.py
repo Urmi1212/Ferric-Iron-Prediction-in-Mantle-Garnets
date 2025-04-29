@@ -77,7 +77,45 @@ if uploaded_file:
         st.pyplot(fig5)
         st.download_button("Download Loadings Plot (JPEG)", fig_to_jpeg(fig5), file_name="loadings_plot.jpeg")
 
+        # ternary plot:
 
+        import streamlit as st
+        import pandas as pd
+        import ternary_app
+
+        st.subheader("Overlayed Ternary Plot")
+
+        file1 = st.file_uploader("Upload first dataset", key="file1")
+        file2 = st.file_uploader("Upload second dataset", key="file2")
+
+        if file1 and file2:
+            df1 = pd.read_excel(file1)
+            df2 = pd.read_excel(file2)
+            df1 = ternary_app.normalize_cations(df1)
+            df2 = ternary_app.normalize_cations(df2)
+
+            image_path = ternary_app.plot_overlay_ternary(df1, df2)
+            st.image(image_path, caption="Overlayed Garnet Ternary Diagram", use_column_width=True)
+
+            # Optional downloads
+            csv1 = df1.to_csv(index=False).encode('utf-8')
+            csv2 = df2.to_csv(index=False).encode('utf-8')
+            st.download_button("Download Dataset 1 (Normalized)", csv1, "normalized_dataset1.csv", "text/csv")
+            st.download_button("Download Dataset 2 (Normalized)", csv2, "normalized_dataset2.csv", "text/csv")
+
+        #model run
+        Data_Train_X = train_data.iloc[:, 0:9]
+        Data_Train_Y = train_data.iloc[:, 10]
+        Data_Test_X = test_data.iloc[:, 0:9]
+        Data_Test_Y = test_data.iloc[:, 10]
+
+        Regress_Mode = 2  # 0-linear 1-extratree 2-Radom forest 3-XGBoost 4-lightGBM
+        If_Predict_GlobalData = 1  # 0-Not Predict Global Data,1 - Predict Global Data
+        list_R2_RMSE = model_train(Data_Train_X, Data_Train_Y, Data_Test_X, Data_Test_Y, Regress_Mode,
+                                   data_apply_global,
+                                   If_Predict_GlobalData)
+
+    # plot on map
 
         # Load and process data
         df = map.load_sample_data()
@@ -90,6 +128,9 @@ if uploaded_file:
         st.image(image_path, caption="ΔFMQ Global Map", use_column_width=True)
 
         # Optional: Show CSV download
-        csv = df_grouped.to_csv(index=False).encode('utf-8')
-        st.download_button("Download ΔFMQ CSV", csv, "grouped_map_data.csv", "text/csv")
+        #csv = df_grouped.to_csv(index=False).encode('utf-8')
+        #st.download_button("Download ΔFMQ CSV", csv, "grouped_map_data.csv", "text/csv")
+
+
+
 
